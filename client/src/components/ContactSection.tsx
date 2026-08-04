@@ -30,9 +30,9 @@ type QuoteFormData = z.infer<typeof quoteSchema>;
 
 // ── Contact info sidebar data ───────────────────────────────────────────────
 const CONTACT_INFO = [
-  { icon: Phone, label: "Phone", value: "+91 93161 52196" },
+  { icon: Phone, label: "Phone / WhatsApp", value: "+91 86903 54354" },
   { icon: Mail, label: "Email", value: "info@unicornprintpack.com" },
-  { icon: MapPin, label: "Address", value: "Industrial Area, Ludhiana, Punjab, India" },
+  { icon: MapPin, label: "Address", value: "Village : Piplana, Surway No. 245 to 250, Plot No. 86/87, JK Industrial Zone, Ta. : Kotda Sangani, Dist. : RAJKOT." },
   { icon: Clock, label: "Working Hours", value: "Mon – Sat: 10:00 AM – 7:00 PM" },
 ];
 

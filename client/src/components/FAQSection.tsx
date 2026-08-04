@@ -53,7 +53,7 @@ const FAQS: FAQ[] = [
   },
   {
     question: "How do I get a quote for my packaging project?",
-    answer: "You can request a quote three ways: (1) Fill out our contact form below with your requirements, (2) WhatsApp us at +91 93161 52196 with your specifications and quantity, or (3) Email us at hello@unicornprintpack.com. We respond within 24 hours with a detailed quotation including material options and pricing.",
+    answer: "You can request a quote three ways: (1) Fill out our contact form below with your requirements, (2) WhatsApp us at +91 86903 54354 with your specifications and quantity, or (3) Email us at info@unicornprintpack.com. We respond within 24 hours with a detailed quotation including material options and pricing.",
     category: "Pricing",
   },
   {

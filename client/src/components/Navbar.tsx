@@ -10,11 +10,11 @@ import { Menu, X, Phone, Mail, Briefcase } from "lucide-react";
 const NAV_LINKS = [
   { label: "HOME", href: "#" },
   { label: "ABOUT", href: "#about" },
-  { label: "4P'S SHOWCASE", href: "#the-4ps" },
-  { label: "PRODUCTS", href: "#product-showcase" },
-  { label: "WHY US", href: "#why-us" },
-  { label: "TECHNOLOGY", href: "#technology" },
   { label: "SERVICES", href: "#services" },
+  { label: "CLIENTS", href: "#clients" },
+  { label: "PRODUCTS", href: "#product-showcase" },
+  { label: "TECHNOLOGY", href: "#technology" },
+  { label: "PORTFOLIO", href: "#portfolio" },
   { label: "CONTACT", href: "#contact" },
 ];
 
@@ -66,10 +66,10 @@ export default function Navbar() {
               <img
                 src={IMAGES.logo}
                 alt="Unicorn Print Pack"
-                className={`w-auto object-contain flex-shrink-0 transition-all duration-300 filter brightness-110 ${
+                className={`w-auto object-contain flex-shrink-0 transition-all duration-300 drop-shadow-sm ${
                   scrolled
-                    ? "h-10 sm:h-11 md:h-12 lg:h-[64px]"
-                    : "h-10 sm:h-12 md:h-14 lg:h-[76px]"
+                    ? "h-8 sm:h-9 md:h-10 lg:h-11"
+                    : "h-9 sm:h-10 md:h-12 lg:h-14"
                 }`}
               />
             </a>
@@ -83,9 +83,9 @@ export default function Navbar() {
                   <span>info@unicornprintpack.com</span>
                 </a>
 
-                <a href="tel:+919576333210" className="flex items-center gap-1.5 hover:text-copper transition-colors">
+                <a href="tel:+918690354354" className="flex items-center gap-1.5 hover:text-copper transition-colors">
                   <Phone className="w-3.5 h-3.5 text-white/60" />
-                  <span>+91 95763 33210</span>
+                  <span>+91 86903 54354</span>
                 </a>
 
                 <a

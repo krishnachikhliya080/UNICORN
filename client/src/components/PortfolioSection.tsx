@@ -186,7 +186,7 @@ export default function PortfolioSection() {
   const handleWhatsAppShare = useCallback(() => {
     if (!quoteProduct) return;
     const msg = `Hi! I'm interested in the ${quoteProduct.name} (${quoteProduct.category}). ${quoteProduct.description}`;
-    window.open(`https://wa.me/919316152196?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/918690354354?text=${encodeURIComponent(msg)}`, '_blank');
   }, [quoteProduct]);
 
   const handleCloseQuote = useCallback(() => {

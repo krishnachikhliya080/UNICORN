@@ -7,7 +7,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const WHATSAPP_NUMBER = "919316152196";
+const WHATSAPP_NUMBER = "918690354354";
 const DEFAULT_MESSAGE = "Hello! I'm interested in your packaging solutions. Could you share more details?";
 const POPUP_DELAY_MS = 8000;
 

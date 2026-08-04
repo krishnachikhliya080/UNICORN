@@ -72,7 +72,7 @@ export default function Footer() {
             <img
               src={IMAGES.logo}
               alt="Unicorn Print Pack"
-              className="h-14 w-auto object-contain mb-6 filter brightness-0 invert"
+              className="h-12 w-auto object-contain mb-6 drop-shadow-sm"
             />
             <p className="text-white/60 text-sm leading-relaxed mb-6">
               Leading international printing and packaging manufacturer. Specializing in high-precision offset printing, luxury rigid boxes, duplex mono cartons, and flexible packaging solutions under one roof.
@@ -125,8 +125,8 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <Phone size={18} className="text-copper flex-shrink-0 mt-0.5" />
                 <div>
-                  <a href="tel:+919576333210" className="hover:text-copper transition-colors font-bold text-white block">
-                    +91 95763 33210
+                  <a href="tel:+918690354354" className="hover:text-copper transition-colors font-bold text-white block">
+                    +91 86903 54354
                   </a>
                   <span className="text-xs text-white/40">Mon - Sat (10 AM - 7 PM)</span>
                 </div>
@@ -141,7 +141,7 @@ export default function Footer() {
 
               <div className="flex items-start gap-3">
                 <MapPin size={18} className="text-copper flex-shrink-0 mt-0.5" />
-                <span>Vadsdare, Gujarat, India</span>
+                <span>Village : Piplana, Surway No. 245 to 250, Plot No. 86/87, JK Industrial Zone, Ta. : Kotda Sangani, Dist. : RAJKOT.</span>
               </div>
             </div>
           </div>
