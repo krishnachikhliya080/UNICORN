@@ -1,8 +1,8 @@
 /**
- * ServicesSection — Printwell-inspired interactive split-panel product selector.
- * Left: Large product/service image that changes per active category.
+ * ServicesSection — Printwell-inspired interactive split-panel product category selector.
+ * Left: Large product image that changes per active category.
  * Right: Vertical category menu — each row slides in a unique colored background on hover/active.
- * Design matches Printwell Rajkot's signature services section layout.
+ * Matches Printwell Rajkot's signature home page section layout.
  */
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -25,8 +25,6 @@ interface ServiceCategory {
   label: string;
   tagline: string;
   color: string;          // panel accent color
-  bgColor: string;        // full bg when active
-  textColor: string;      // icon/text override
   image: string;
 }
 
@@ -37,8 +35,6 @@ const CATEGORIES: ServiceCategory[] = [
     label: "Offset Printing",
     tagline: "Heidelberg Precision — CMYK + Pantone spot colors",
     color: "#2e3192",
-    bgColor: "#2e3192",
-    textColor: "#ffffff",
     image: IMAGES.product4,
   },
   {
@@ -47,8 +43,6 @@ const CATEGORIES: ServiceCategory[] = [
     label: "FBB & Mono Cartons",
     tagline: "Food-safe duplex & FBB folding cartons for FMCG brands",
     color: "#f97f2c",
-    bgColor: "#f97f2c",
-    textColor: "#ffffff",
     image: IMAGES.product7,
   },
   {
@@ -57,8 +51,6 @@ const CATEGORIES: ServiceCategory[] = [
     label: "Rigid Luxury Boxes",
     tagline: "Magnetic closures, velvet inlay, foil & embossing",
     color: "#94368d",
-    bgColor: "#94368d",
-    textColor: "#ffffff",
     image: IMAGES.product2,
   },
   {
@@ -67,8 +59,6 @@ const CATEGORIES: ServiceCategory[] = [
     label: "Corrugated Cartons",
     tagline: "Heavy-duty shipping & e-commerce mailer boxes",
     color: "#00897b",
-    bgColor: "#00897b",
-    textColor: "#ffffff",
     image: IMAGES.product13,
   },
   {
@@ -77,8 +67,6 @@ const CATEGORIES: ServiceCategory[] = [
     label: "Brochures & Catalogs",
     tagline: "High-gloss & matte catalogs, danglers, and leaflets",
     color: "#f4436d",
-    bgColor: "#f4436d",
-    textColor: "#ffffff",
     image: IMAGES.product9,
   },
   {
@@ -87,8 +75,6 @@ const CATEGORIES: ServiceCategory[] = [
     label: "Self-Adhesive Labels",
     tagline: "Bopp, paper & metallic labels with die-cut precision",
     color: "#b68250",
-    bgColor: "#b68250",
-    textColor: "#ffffff",
     image: IMAGES.product12,
   },
   {
@@ -97,8 +83,6 @@ const CATEGORIES: ServiceCategory[] = [
     label: "Packaging Design",
     tagline: "Structural dielines, print-ready artwork & mockups",
     color: "#1565c0",
-    bgColor: "#1565c0",
-    textColor: "#ffffff",
     image: IMAGES.product1,
   },
 ];
@@ -122,7 +106,7 @@ export default function ServicesSection() {
             What We Offer
           </span>
           <h2 className="text-display text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal">
-            Our Products & Services
+            Our Products & Capabilities
           </h2>
           <p className="mt-3 text-body text-base text-text-muted max-w-xl mx-auto">
             Hover or tap a category below to explore our full-service print & packaging capabilities.
@@ -130,7 +114,7 @@ export default function ServicesSection() {
         </motion.div>
       </div>
 
-      {/* Split Panel — Full Width, No Padding */}
+      {/* Split Panel — Full Width */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
@@ -176,25 +160,25 @@ export default function ServicesSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* "More Details" button */}
+          {/* "Explore Products" button */}
           <div className="absolute bottom-6 right-6">
             <a
-              href="#portfolio"
+              href="#product-showcase"
               onClick={(e) => {
                 e.preventDefault();
-                document.querySelector("#portfolio")?.scrollIntoView({ behavior: "smooth" });
+                document.querySelector("#product-showcase")?.scrollIntoView({ behavior: "smooth" });
               }}
               className="inline-flex items-center gap-2 px-4 py-2 border border-white/40 text-white text-xs font-mono uppercase tracking-widest hover:bg-white hover:text-charcoal transition-all duration-300 rounded-sm"
             >
               <ExternalLink size={13} />
-              More Details
+              Explore Products
             </a>
           </div>
         </div>
 
         {/* ── RIGHT: Category Menu Panel ── */}
         <div className="w-full lg:w-[42%] flex flex-col bg-white border-l border-slate-200/80">
-          {CATEGORIES.map((cat, i) => {
+          {CATEGORIES.map((cat) => {
             const isActive = cat.id === activeId;
             return (
               <button

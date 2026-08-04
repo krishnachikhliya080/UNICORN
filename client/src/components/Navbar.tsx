@@ -1,27 +1,33 @@
 /**
  * Navbar — Exact Printwell Reference Layout & Dark Navy Studio Aesthetic.
- * Recreates the exact top-right contact links + bottom line nav bar with active HOME box.
+ * Supports dedicated route navigation (/about, /products, /technology, /portfolio, /contact) 
+ * and smooth hash scrolling on the home page.
  */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "wouter";
 import { IMAGES } from "@/const";
 import { Menu, X, Phone, Mail, Briefcase } from "lucide-react";
 
-const NAV_LINKS = [
-  { label: "HOME", href: "#" },
-  { label: "ABOUT", href: "#about" },
-  { label: "SERVICES", href: "#services" },
-  { label: "CLIENTS", href: "#clients" },
-  { label: "PRODUCTS", href: "#product-showcase" },
-  { label: "TECHNOLOGY", href: "#technology" },
-  { label: "PORTFOLIO", href: "#portfolio" },
-  { label: "CONTACT", href: "#contact" },
+interface NavLinkItem {
+  label: string;
+  route: string;
+  hash: string;
+}
+
+const NAV_LINKS: NavLinkItem[] = [
+  { label: "HOME", route: "/", hash: "#" },
+  { label: "ABOUT", route: "/about", hash: "#about" },
+  { label: "PRODUCTS", route: "/products", hash: "#product-showcase" },
+  { label: "TECHNOLOGY", route: "/technology", hash: "#technology" },
+  { label: "PORTFOLIO", route: "/portfolio", hash: "#portfolio" },
+  { label: "CONTACT", route: "/contact", hash: "#contact" },
 ];
 
 export default function Navbar() {
+  const [location, setLocation] = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("HOME");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -29,15 +35,38 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (href: string, label: string) => {
-    setActiveTab(label);
+  const handleNavClick = (link: NavLinkItem) => {
     setMobileOpen(false);
-    if (href === "#") {
+
+    // If target has a dedicated route and we are not on home, or navigating to subpage
+    if (link.route !== "/" && location !== link.route) {
+      setLocation(link.route);
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // If on home page and clicking a home hash link
+    if (location === "/" && link.route === "/") {
+      if (link.hash === "#") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      const el = document.querySelector(link.hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+    }
+
+    // Fallback: navigate to route
+    setLocation(link.route);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const isLinkActive = (link: NavLinkItem) => {
+    if (link.route !== "/" && location === link.route) return true;
+    if (location === "/" && link.route === "/" && link.hash === "#") return true;
+    return false;
   };
 
   return (
@@ -56,11 +85,12 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             {/* ── Logo on Left ── */}
             <a
-              href="#"
-              className="flex-shrink-0 flex items-center"
+              href="/"
+              className="flex-shrink-0 flex items-center cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
-                scrollTo("#", "HOME");
+                setLocation("/");
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
               <img
@@ -103,13 +133,13 @@ export default function Navbar() {
               {/* Navigation Menu Row */}
               <nav className="flex items-center gap-1 pt-1">
                 {NAV_LINKS.map((link) => {
-                  const isActive = activeTab === link.label;
+                  const active = isLinkActive(link);
                   return (
                     <button
                       key={link.label}
-                      onClick={() => scrollTo(link.href, link.label)}
-                      className={`text-xs font-bold uppercase tracking-widest transition-all duration-200 px-3.5 py-2 ${
-                        isActive
+                      onClick={() => handleNavClick(link)}
+                      className={`text-xs font-bold uppercase tracking-widest transition-all duration-200 px-3.5 py-2 cursor-pointer ${
+                        active
                           ? "bg-copper text-white shadow-md shadow-copper/20"
                           : "text-white/85 hover:text-white hover:bg-white/5"
                       }`}
@@ -152,9 +182,9 @@ export default function Navbar() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: i * 0.05, duration: 0.3 }}
-                onClick={() => scrollTo(link.href, link.label)}
+                onClick={() => handleNavClick(link)}
                 className={`text-display text-xl font-bold tracking-widest uppercase transition-colors ${
-                  activeTab === link.label ? "text-copper" : "text-white/80 hover:text-white"
+                  isLinkActive(link) ? "text-copper" : "text-white/80 hover:text-white"
                 }`}
               >
                 {link.label}

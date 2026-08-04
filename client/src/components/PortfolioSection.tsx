@@ -86,12 +86,7 @@ const PRODUCTS: ProductImage[] = [
     category: "Rigid & Luxury",
     description: "Variant packaging with copper gradient print and foil accents.",
   },
-  {
-    src: IMAGES.product12,
-    name: "Cosmetic Display Box",
-    category: "Cosmetic",
-    description: "Full-bleed cosmetic packaging with soft-touch lamination and rose-gold foil.",
-  },
+
   {
     src: IMAGES.product13,
     name: "Mailer Shipping Box",

@@ -1,8 +1,8 @@
 /**
- * TestimonialsSection — Printwell-inspired layout.
- * Full-width sky-blue/copper-gradient banner with large italic testimonial on the left.
- * White floating quote form card on the right, overlapping the banner.
- * "Speak with our Executive" phone/WhatsApp contact badges.
+ * TestimonialsSection — Industry-Level Light Theme Design.
+ * Features a crisp, light background (slate-50), subtle copper accents,
+ * glass-like white cards, star ratings, verified client badges,
+ * and a high-converting instant quote form.
  */
 import { useState, useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
@@ -16,6 +16,10 @@ import {
   MessageCircle,
   Send,
   CheckCircle2,
+  Star,
+  ShieldCheck,
+  Building2,
+  Clock,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -25,6 +29,8 @@ interface Testimonial {
   role: string;
   company: string;
   initials: string;
+  rating: number;
+  location: string;
 }
 
 const TESTIMONIALS: Testimonial[] = [
@@ -35,6 +41,8 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Managing Director",
     company: "Varmora Plastech",
     initials: "RM",
+    rating: 5,
+    location: "Morbi, Gujarat",
   },
   {
     quote:
@@ -43,6 +51,8 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Procurement Lead",
     company: "Fern Residency",
     initials: "VP",
+    rating: 5,
+    location: "Rajkot, Gujarat",
   },
   {
     quote:
@@ -51,6 +61,8 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Brand Director",
     company: "Adison Luxury",
     initials: "PS",
+    rating: 5,
+    location: "Mumbai, MH",
   },
   {
     quote:
@@ -59,6 +71,8 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Operations Head",
     company: "Trozen Pack",
     initials: "DC",
+    rating: 5,
+    location: "Ahmedabad, GJ",
   },
 ];
 
@@ -82,7 +96,7 @@ export default function TestimonialsSection() {
 
   useEffect(() => {
     if (!emblaApi) return;
-    const id = setInterval(() => emblaApi.scrollNext(), 5000);
+    const id = setInterval(() => emblaApi.scrollNext(), 5500);
     return () => clearInterval(id);
   }, [emblaApi]);
 
@@ -104,69 +118,79 @@ export default function TestimonialsSection() {
     <section
       id="testimonials"
       ref={ref}
-      className="relative overflow-hidden"
+      className="relative py-20 md:py-28 bg-[#F8FAFC] text-slate-900 overflow-hidden border-t border-b border-slate-200/80"
     >
-      {/* ── BLUE BANNER BACKGROUND (Printwell-style) ── */}
-      <div
-        className="relative w-full py-16 md:py-20"
-        style={{
-          background:
-            "linear-gradient(135deg, #1a3a6e 0%, #2563a8 40%, #1e90c8 75%, #00b4d8 100%)",
-        }}
-      >
-        {/* Subtle pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.04] pointer-events-none"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)",
-            backgroundSize: "20px 20px",
-          }}
-        />
+      {/* Light subtle decorative blobs */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-copper/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-amber-500/5 blur-[100px] pointer-events-none" />
 
-        <div className="container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-10 items-start">
-            {/* ── LEFT: Section Label + Testimonial Slider ── */}
-            <div className="lg:col-span-6 flex flex-col gap-6 pb-8 lg:pb-0">
-              {/* Label */}
-              <div>
-                <span className="inline-block text-xs font-mono uppercase tracking-[0.25em] text-white/70 font-semibold mb-4">
-                  — What Our Clients Say
-                </span>
-                <h2 className="text-display text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                  Delivering Excellence To<br className="hidden md:block" />
-                  <span className="text-white/90">Industry Leaders</span>
-                </h2>
-                <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-md">
-                  Trusted by top corporate brands for reliable offset printing,
-                  folding cartons, and luxury packaging solutions.
-                </p>
-              </div>
+      <div className="container max-w-7xl mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+          
+          {/* ── LEFT: Client Testimonials Carousel & Trust Badges (LIGHT THEME) ── */}
+          <div className="lg:col-span-6 flex flex-col justify-between">
+            <motion.div
+              initial={{ y: 24, opacity: 0 }}
+              animate={inView ? { y: 0, opacity: 1 } : {}}
+              transition={{ duration: 0.6 }}
+            >
+              {/* Badge */}
+              <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-copper font-bold px-3.5 py-1.5 bg-copper/10 border border-copper/20 rounded-full mb-4">
+                <ShieldCheck size={14} className="text-copper" />
+                Trusted By Industry Leaders
+              </span>
 
-              {/* Embla Testimonial Slider */}
-              <div className="relative">
-                <div
-                  className="overflow-hidden rounded-xl"
-                  ref={emblaRef}
-                >
+              {/* Title */}
+              <h2 className="text-display text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 leading-tight">
+                What Our Clients Say About{" "}
+                <span className="text-copper">Unicorn Print Pack</span>
+              </h2>
+
+              <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-8">
+                Over 500+ corporate brands trust us for zero-defect offset printing, 
+                rigid gift packaging, and duplex folding cartons.
+              </p>
+
+              {/* Embla Testimonial Carousel Card */}
+              <div className="relative mb-6">
+                <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
                   <div className="flex">
                     {TESTIMONIALS.map((t, i) => (
                       <div key={i} className="flex-[0_0_100%] min-w-0">
-                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 md:p-8 border border-white/20">
-                          <Quote className="w-10 h-10 text-white/30 mb-4" />
-                          <p className="text-white text-base md:text-lg leading-relaxed italic mb-6 font-serif">
+                        <div className="bg-white border border-slate-200 rounded-2xl p-7 md:p-8 shadow-md hover:shadow-xl transition-shadow duration-300 relative">
+                          
+                          {/* Quote Icon & Star Rating Row */}
+                          <div className="flex items-center justify-between mb-4">
+                            <Quote className="w-9 h-9 text-copper/30" />
+                            <div className="flex items-center gap-1">
+                              {[...Array(t.rating)].map((_, sIdx) => (
+                                <Star key={sIdx} size={15} className="fill-amber-400 text-amber-400" />
+                              ))}
+                              <span className="text-xs font-mono font-bold text-slate-500 ml-1">5.0</span>
+                            </div>
+                          </div>
+
+                          {/* Quote Text */}
+                          <p className="text-slate-700 text-base md:text-lg leading-relaxed italic font-serif mb-6">
                             "{t.quote}"
                           </p>
-                          <div className="flex items-center gap-3 pt-4 border-t border-white/15">
-                            <div className="w-11 h-11 rounded-full bg-white/20 border border-white/30 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                              {t.initials}
+
+                          {/* Author Info */}
+                          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                            <div className="flex items-center gap-3.5">
+                              <div className="w-11 h-11 rounded-full bg-copper/10 border border-copper/30 flex items-center justify-center text-copper font-bold text-sm font-mono flex-shrink-0">
+                                {t.initials}
+                              </div>
+                              <div>
+                                <p className="text-slate-900 font-bold text-sm font-sans">{t.name}</p>
+                                <p className="text-slate-500 text-xs font-mono">
+                                  {t.role}, <span className="text-copper font-semibold">{t.company}</span>
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <p className="text-white font-bold text-sm">{t.name}</p>
-                              <p className="text-white/60 text-xs font-mono">
-                                {t.role}, {t.company}
-                              </p>
-                            </div>
+                            <span className="text-[11px] font-mono text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md hidden sm:inline-block">
+                              {t.location}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -174,232 +198,227 @@ export default function TestimonialsSection() {
                   </div>
                 </div>
 
-                {/* Carousel controls */}
-                <div className="flex items-center gap-3 mt-4 justify-start">
-                  <button
-                    onClick={scrollPrev}
-                    className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-all duration-200"
-                  >
-                    <ChevronLeft size={18} />
-                  </button>
-                  <button
-                    onClick={scrollNext}
-                    className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-all duration-200"
-                  >
-                    <ChevronRight size={18} />
-                  </button>
+                {/* Carousel Controls */}
+                <div className="flex items-center justify-between mt-4">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-copper animate-pulse" />
+                    <span className="text-xs font-mono text-slate-500 font-medium">Verified Client Reviews</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={scrollPrev}
+                      className="w-10 h-10 rounded-full bg-white border border-slate-200 hover:bg-copper hover:border-copper hover:text-white transition-all text-slate-700 flex items-center justify-center shadow-sm cursor-pointer"
+                      aria-label="Previous testimonial"
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                    <button
+                      onClick={scrollNext}
+                      className="w-10 h-10 rounded-full bg-white border border-slate-200 hover:bg-copper hover:border-copper hover:text-white transition-all text-slate-700 flex items-center justify-center shadow-sm cursor-pointer"
+                      aria-label="Next testimonial"
+                    >
+                      <ChevronRight size={18} />
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* Executive Contact Badges (Printwell style) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-                <a
-                  href="tel:+918690354354"
-                  className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 group"
-                >
-                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                    <Phone size={18} className="text-blue-600" />
+              {/* Direct Call Helpline Card */}
+              <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-full bg-copper/10 border border-copper/20 flex items-center justify-center text-copper flex-shrink-0">
+                    <Phone size={20} />
                   </div>
                   <div>
-                    <p className="text-white/70 text-[10px] font-mono uppercase tracking-widest font-bold">
-                      Call Our Executive
+                    <p className="text-[10px] font-mono text-copper uppercase tracking-wider font-bold">
+                      Direct Executive Helpline
                     </p>
-                    <p className="text-white font-bold text-sm">
+                    <a
+                      href="tel:+918690354354"
+                      className="text-lg font-bold text-slate-900 hover:text-copper transition-colors font-mono"
+                    >
                       +91 86903 54354
-                    </p>
-                    <p className="text-white/50 text-[10px]">Mon–Sat, 10 AM–7 PM</p>
+                    </a>
                   </div>
-                </a>
-                <a
-                  href="https://wa.me/918690354354?text=Hi! I need a quote for packaging."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-4 bg-[#25D366]/15 backdrop-blur-sm rounded-xl border border-[#25D366]/30 hover:bg-[#25D366]/25 transition-all duration-300 group"
-                >
-                  <div className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center flex-shrink-0 shadow-md group-hover:scale-105 transition-transform">
-                    <MessageCircle size={18} className="text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white/70 text-[10px] font-mono uppercase tracking-widest font-bold">
-                      WhatsApp Query
-                    </p>
-                    <p className="text-white font-bold text-sm">
-                      Instant Response
-                    </p>
-                    <p className="text-white/50 text-[10px]">For delivery & urgent orders</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* ── RIGHT: White Floating Quote Form Card ── */}
-            <div className="lg:col-span-6">
-              <motion.div
-                initial={{ y: 30, opacity: 0 }}
-                animate={inView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.7, delay: 0.3 }}
-                className="bg-white rounded-2xl shadow-2xl border border-white/20 overflow-hidden"
-              >
-                {/* Card header */}
-                <div className="px-7 pt-7 pb-4 border-b border-slate-100">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-sm bg-copper/10 flex items-center justify-center">
-                      <Send size={15} className="text-copper" />
-                    </div>
-                    <span className="text-xs font-mono uppercase tracking-widest text-copper font-bold">
-                      Free Quote Request
-                    </span>
-                  </div>
-                  <h3 className="text-display text-xl font-bold text-charcoal">
-                    Get Your Free Quote
-                  </h3>
-                  <p className="text-text-muted text-xs mt-1">
-                    Fill in the form below and our executive will be in touch shortly.
-                  </p>
                 </div>
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+                  <Clock size={13} className="text-copper" />
+                  <span>Mon – Sat (10 AM – 7 PM)</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
 
-                {/* Card body */}
-                <div className="px-7 py-6">
-                  {submitted ? (
-                    <div className="py-10 text-center">
-                      <CheckCircle2 size={48} className="text-copper mx-auto mb-4" />
-                      <h4 className="text-display text-xl font-bold text-charcoal mb-2">
-                        Quote Request Received!
-                      </h4>
-                      <p className="text-text-muted text-sm max-w-xs mx-auto">
-                        Our sales executive will contact you with a custom quotation and structural
-                        design suggestions.
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-3.5">
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label className="block text-[10px] font-mono text-charcoal mb-1 uppercase font-bold tracking-wider">
-                            Full Name *
-                          </label>
-                          <input
-                            type="text"
-                            required
-                            value={formData.name}
-                            onChange={(e) =>
-                              setFormData({ ...formData, name: e.target.value })
-                            }
-                            placeholder="e.g. Rajesh Maliya"
-                            className="w-full bg-warm-gray border border-charcoal/10 rounded-sm px-3 py-2.5 text-sm text-charcoal placeholder:text-text-muted/40 focus:outline-none focus:border-copper transition-colors"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[10px] font-mono text-charcoal mb-1 uppercase font-bold tracking-wider">
-                            Business Name
-                          </label>
-                          <input
-                            type="text"
-                            value={formData.company}
-                            onChange={(e) =>
-                              setFormData({ ...formData, company: e.target.value })
-                            }
-                            placeholder="e.g. Adison Ltd"
-                            className="w-full bg-warm-gray border border-charcoal/10 rounded-sm px-3 py-2.5 text-sm text-charcoal placeholder:text-text-muted/40 focus:outline-none focus:border-copper transition-colors"
-                          />
-                        </div>
-                      </div>
+          {/* ── RIGHT: Industry-Level Light Quote Request Card ── */}
+          <div className="lg:col-span-6">
+            <motion.div
+              initial={{ y: 30, opacity: 0 }}
+              animate={inView ? { y: 0, opacity: 1 } : {}}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden text-slate-900"
+            >
+              {/* Header */}
+              <div className="p-7 pb-5 bg-gradient-to-r from-slate-900 to-[#141d2b] text-white">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <div className="w-7 h-7 rounded-md bg-copper/20 flex items-center justify-center">
+                    <Send size={14} className="text-copper" />
+                  </div>
+                  <span className="text-[11px] font-mono uppercase tracking-widest text-copper font-bold">
+                    Free Instant Quotation
+                  </span>
+                </div>
+                <h3 className="text-display text-2xl font-bold text-white">
+                  Request a Custom Quote
+                </h3>
+                <p className="text-slate-300 text-xs mt-1">
+                  Fill in below requirements & our sales engineer will send a detailed pricing breakdown.
+                </p>
+              </div>
 
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label className="block text-[10px] font-mono text-charcoal mb-1 uppercase font-bold tracking-wider">
-                            Email *
-                          </label>
-                          <input
-                            type="email"
-                            required
-                            value={formData.email}
-                            onChange={(e) =>
-                              setFormData({ ...formData, email: e.target.value })
-                            }
-                            placeholder="name@company.com"
-                            className="w-full bg-warm-gray border border-charcoal/10 rounded-sm px-3 py-2.5 text-sm text-charcoal placeholder:text-text-muted/40 focus:outline-none focus:border-copper transition-colors"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[10px] font-mono text-charcoal mb-1 uppercase font-bold tracking-wider">
-                            Phone No. *
-                          </label>
-                          <input
-                            type="tel"
-                            required
-                            value={formData.phone}
-                            onChange={(e) =>
-                              setFormData({ ...formData, phone: e.target.value })
-                            }
-                            placeholder="+91 98765 43210"
-                            className="w-full bg-warm-gray border border-charcoal/10 rounded-sm px-3 py-2.5 text-sm text-charcoal placeholder:text-text-muted/40 focus:outline-none focus:border-copper transition-colors"
-                          />
-                        </div>
-                      </div>
-
+              {/* Form Body */}
+              <div className="p-7 bg-white">
+                {submitted ? (
+                  <div className="py-12 text-center">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                      className="w-16 h-16 rounded-full bg-copper/10 border border-copper/30 flex items-center justify-center mx-auto mb-4"
+                    >
+                      <CheckCircle2 size={36} className="text-copper" />
+                    </motion.div>
+                    <h4 className="text-display text-xl font-bold text-slate-900 mb-2">
+                      Quote Request Sent Successfully!
+                    </h4>
+                    <p className="text-slate-600 text-sm max-w-xs mx-auto">
+                      Our engineering team will get back to you within 24 hours with your custom quotation.
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[10px] font-mono text-charcoal mb-1 uppercase font-bold tracking-wider">
-                          Looking For
+                        <label className="block text-[11px] font-mono text-slate-700 mb-1.5 uppercase font-bold tracking-wider">
+                          Full Name *
                         </label>
-                        <select
-                          value={formData.product}
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
                           onChange={(e) =>
-                            setFormData({ ...formData, product: e.target.value })
+                            setFormData({ ...formData, name: e.target.value })
                           }
-                          className="w-full bg-warm-gray border border-charcoal/10 rounded-sm px-3 py-2.5 text-sm text-charcoal focus:outline-none focus:border-copper transition-colors cursor-pointer"
-                        >
-                          <option value="Packaging Cartons">Packaging Cartons (FBB / Duplex)</option>
-                          <option value="Rigid Gift Boxes">Rigid Luxury Gift Boxes</option>
-                          <option value="Corrugated Cartons">Corrugated Shipping Cartons</option>
-                          <option value="Commercial Offset">Commercial Brochures &amp; Catalogs</option>
-                          <option value="Stickers & Labels">Product Stickers &amp; Labels</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-[10px] font-mono text-charcoal mb-1 uppercase font-bold tracking-wider">
-                          Approx. Budget / Quantity
-                        </label>
-                        <textarea
-                          rows={2}
-                          value={formData.message}
-                          onChange={(e) =>
-                            setFormData({ ...formData, message: e.target.value })
-                          }
-                          placeholder="e.g. 5000 units, matte lamination, 4-week delivery..."
-                          className="w-full bg-warm-gray border border-charcoal/10 rounded-sm px-3 py-2.5 text-sm text-charcoal placeholder:text-text-muted/40 focus:outline-none focus:border-copper transition-colors resize-none"
+                          placeholder="e.g. Rajesh Maliya"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-copper focus:ring-2 focus:ring-copper/10 transition-all font-sans"
                         />
                       </div>
-
-                      {/* Submit row */}
-                      <div className="flex gap-3 pt-1">
-                        <button
-                          type="submit"
-                          disabled={submitting}
-                          className="flex-1 py-3 bg-[#1e3a8a] hover:bg-[#1e40af] text-white font-bold text-xs uppercase tracking-widest rounded-sm transition-all duration-300 flex items-center justify-center gap-2 shadow-md disabled:opacity-50"
-                        >
-                          <Send size={13} />
-                          {submitting ? "Submitting..." : "Submit"}
-                        </button>
-                        <a
-                          href="#contact"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            document
-                              .querySelector("#contact")
-                              ?.scrollIntoView({ behavior: "smooth" });
-                          }}
-                          className="flex-1 py-3 bg-copper hover:bg-copper-dark text-white font-bold text-xs uppercase tracking-widest rounded-sm transition-all duration-300 flex items-center justify-center gap-2 shadow-md"
-                        >
-                          Get Detailed Quote →
-                        </a>
+                      <div>
+                        <label className="block text-[11px] font-mono text-slate-700 mb-1.5 uppercase font-bold tracking-wider">
+                          Business / Company
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.company}
+                          onChange={(e) =>
+                            setFormData({ ...formData, company: e.target.value })
+                          }
+                          placeholder="e.g. Adison Ltd"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-copper focus:ring-2 focus:ring-copper/10 transition-all font-sans"
+                        />
                       </div>
-                    </form>
-                  )}
-                </div>
-              </motion.div>
-            </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[11px] font-mono text-slate-700 mb-1.5 uppercase font-bold tracking-wider">
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) =>
+                            setFormData({ ...formData, email: e.target.value })
+                          }
+                          placeholder="name@company.com"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-copper focus:ring-2 focus:ring-copper/10 transition-all font-sans"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-mono text-slate-700 mb-1.5 uppercase font-bold tracking-wider">
+                          Phone Number *
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          value={formData.phone}
+                          onChange={(e) =>
+                            setFormData({ ...formData, phone: e.target.value })
+                          }
+                          placeholder="+91 98765 43210"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-copper focus:ring-2 focus:ring-copper/10 transition-all font-sans"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-mono text-slate-700 mb-1.5 uppercase font-bold tracking-wider">
+                        Product Category
+                      </label>
+                      <select
+                        value={formData.product}
+                        onChange={(e) =>
+                          setFormData({ ...formData, product: e.target.value })
+                        }
+                        className="w-full bg-slate-50 border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-copper focus:ring-2 focus:ring-copper/10 transition-all cursor-pointer font-sans"
+                      >
+                        <option value="Packaging Cartons">Packaging Cartons (FBB / Duplex)</option>
+                        <option value="Rigid Gift Boxes">Rigid Luxury Gift Boxes</option>
+                        <option value="Corrugated Cartons">Corrugated Shipping Cartons</option>
+                        <option value="Commercial Offset">Commercial Brochures &amp; Catalogs</option>
+                        <option value="Stickers & Labels">Product Stickers &amp; Labels</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-mono text-slate-700 mb-1.5 uppercase font-bold tracking-wider">
+                        Requirements / Quantity / GSM
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={formData.message}
+                        onChange={(e) =>
+                          setFormData({ ...formData, message: e.target.value })
+                        }
+                        placeholder="e.g. 5,000 units, matte lamination with gold foil, 350 GSM board..."
+                        className="w-full bg-slate-50 border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-copper focus:ring-2 focus:ring-copper/10 transition-all resize-none font-sans"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        className="w-full py-3.5 bg-copper hover:bg-copper-dark text-white font-bold text-xs uppercase tracking-widest rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-md shadow-copper/20 cursor-pointer disabled:opacity-50"
+                      >
+                        <Send size={14} />
+                        {submitting ? "Submitting..." : "Submit Quote Request"}
+                      </button>
+
+                      <a
+                        href="https://wa.me/918690354354?text=Hi! I would like to request a quote."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-widest rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-md shadow-[#25D366]/20 cursor-pointer"
+                      >
+                        <MessageCircle size={15} />
+                        WhatsApp Quick Chat
+                      </a>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

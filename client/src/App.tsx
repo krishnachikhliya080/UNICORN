@@ -6,11 +6,21 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import Preloader from "./components/common/Preloader";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import AboutPage from "./pages/AboutPage";
+import ProductsPage from "./pages/ProductsPage";
+import PortfolioPage from "./pages/PortfolioPage";
+import TechnologyPage from "./pages/TechnologyPage";
+import ContactPage from "./pages/ContactPage";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/about"} component={AboutPage} />
+      <Route path={"/products"} component={ProductsPage} />
+      <Route path={"/portfolio"} component={PortfolioPage} />
+      <Route path={"/technology"} component={TechnologyPage} />
+      <Route path={"/contact"} component={ContactPage} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>
